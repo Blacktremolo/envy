@@ -76,10 +76,10 @@ func Emit(signal Signal, params ...Object) {
 				paramlist = append(paramlist, reflect.ValueOf(params[i]))
 			}
 		}
-		go func() {
+		go func(slot SlotVal, paramlist []reflect.Value) {
 			defer crashHandler("Fatal: Cannot call slot/function")
 			reflect.Value(slot).Call(paramlist)
-		}()
+		}(slot, paramlist)
 	}
 }
 
